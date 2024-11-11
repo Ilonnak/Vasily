@@ -7,6 +7,8 @@ class Program
     {
         Console.OutputEncoding = Encoding.UTF8;
 
+        //Task 1
+       
         Console.Write("Введіть стать (чоловік/жінка): ");
         string gender = Console.ReadLine().Trim();
 
@@ -138,5 +140,24 @@ class Program
         Console.WriteLine($"Кількість відвіданих країн: {countriesVisited}");
         Console.WriteLine($"Найбільша мрія: {biggestDream}");
         Console.WriteLine($"Улюблена гра: {favoriteGame}");
+
+        // Task 2
+
+        /*Console.Write("Введіть назву продукту: ");
+        string productName = Console.ReadLine().Trim().ToUpper();
+        Console.Write("Введіть кількість продукту: ");
+        double quantity = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
+        Console.Write("Введіть одиниці вимірювання (шт., кг, тонни, літри тощо): ");
+        string unit = Console.ReadLine().Trim().ToLower();
+
+        Console.Write("Введіть ціну продукту: ");
+        double price = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
+
+        Console.Clear();
+
+        Console.WriteLine("Інформація про продукт:");
+        Console.WriteLine($"Назва: {productName}");
+        Console.WriteLine($"Кількість: {quantity} {unit}");
+        Console.WriteLine($"Ціна: {price} за {unit}");*/
     }
 }

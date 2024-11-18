@@ -3,161 +3,195 @@ using System.Globalization;
 using System.Text;
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
 
         //Task 1
-       
-        Console.Write("Введіть стать (чоловік/жінка): ");
-        string gender = Console.ReadLine().Trim();
 
-        Console.Write("Введіть ПІБ: ");
-        string fullName = Console.ReadLine().Trim();
+        /*Console.WriteLine("Введіть розмір ставки(від 5$ до 100$, крок ставки 5$):");
+        int bet;
+        while (!int.TryParse(Console.ReadLine(), out bet) || bet < 5 || bet > 100 || bet % 5 != 0)
+        {
+            Console.WriteLine("Неправильна ставка. Введіть значення в діапазоні від 5$ до 100$:");
+        }
+        Random random = new Random();
+        int[] reels = new int[3];
+        for (int i = 0; i < reels.Length; i++)
+        {
+            reels[i] = random.Next(1, 10);
+        }
+        Console.WriteLine($"Ваша комбінація: {reels[0]}{reels[1]}{reels[2]}");
+        double multiplier = CalculateMultiplier(reels);
+        if(multiplier > 0)
+        {
+            double winnings = bet * multiplier;
+            Console.WriteLine($"Вітаємо! Ви виграли {winnings:C}(коефіцієнт: {multiplier})");
+        }
+        else
+        {
+            Console.WriteLine("На жаль, ви програли. Спробуйте ще раз...");
+        }
+    }
+    static double CalculateMultiplier(int[] reels)
+    {
+        if (reels[0] == reels[1] && reels[1] == reels[2])
+        {
+            switch (reels[0])
+            {
+                case 1: return 10 * 1.5;
+                case 2: return 20 * 1.5;
+                case 3: return 30 * 1.5;
+                case 4: return 40 * 1.5;
+                case 5: return 50 * 1.5;
+                case 6: return 60 * 1.5;
+                case 8: return 80 * 1.5;
+                case 9: return 90 * 1.5;
+                case 7: return 150 * 1.5;
+            }
+        }
+        if (reels[0] == reels[1] || reels[1] == reels[2])
+        {
+            int matchedNumber = reels[1];
+            switch (matchedNumber)
+            {
+                case 1: return 1 * 1.25;
+                case 2: return 2 * 1.25;
+                case 3: return 3 * 1.25;
+                case 4: return 4 * 1.25;
+                case 5: return 5 * 1.25;
+                case 6: return 6 * 1.25;
+                case 8: return 8 * 1.25;
+                case 9: return 9 * 1.25;
+                case 7: return 15 * 1.25;
 
-        Console.Write("Введіть вік: ");
-        int age = int.Parse(Console.ReadLine());
+            }
+        }
+        if (Array.Exists(reels, x => x == 7)) return 1.6;
+        if (Array.Exists(reels, x => x == 9)) return 1.35;
+        return 0;*/
 
-        Console.Write("Введіть вулицю: ");
-        string street = Console.ReadLine().Trim();
+        //Task 2;
+        /* Console.WriteLine("Введіть число N:");
+         int N;
+         while (!int.TryParse(Console.ReadLine(), out N) || N <= 0)
+         {
+             Console.WriteLine("Будь ласка, введіть додатне ціле число:");
+         }
+         Console.WriteLine($"Числа Армстронга в діапазоні від 1 до {N}:");
+         for (int i = 1; i <= N; i++)
+         {
+             if (IsArmstrong(i))
+             {
+                 Console.WriteLine(i);
+             }
+         }
+     }
+     static bool IsArmstrong(int number)
+     {
+         int sum = 0;
+         int temp = number;
+         int digitsCount = number.ToString().Length; 
 
-        Console.Write("Введіть номер будинку: ");
-        int houseNumber = int.Parse(Console.ReadLine());
+         while (temp > 0)
+         {
+             int digit = temp % 10; 
+             sum += (int)Math.Pow(digit, digitsCount); 
+             temp /= 10; 
+         }
 
-        Console.Write("Введіть номер квартири: ");
-        int apartmentNumber = int.Parse(Console.ReadLine());
+         return sum == number;*/
 
-        Console.Write("Введіть номер телефону: ");
-        string phoneNumber = Console.ReadLine().Trim();
+        //Task 3
 
-        Console.Write("Введіть електронну пошту: ");
-        string email = Console.ReadLine().Trim();
+        /*Random random = new Random();
+        string secretPassword = "";
+        for (int i = 0; i < 4; i++)
+        {
+            secretPassword += random.Next(0, 10).ToString();
+        }
 
-        Console.Write("Введіть зріст (у метрах): ");
-        double height = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
+        Console.WriteLine("Гра починається! Комп'ютер загадав пароль з 4-х цифр. Вгадайте його.");
+        int attempts = 0;
+        bool isGuessed = false;
 
-        Console.Write("Введіть вагу (у кілограмах): ");
-        double weight = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
+        while (!isGuessed)
+        {
+            Console.Write("Введіть ваш пароль: ");
+            string userGuess = Console.ReadLine();
 
-        Console.Write("Введіть групу крові: ");
-        string bloodGroup = Console.ReadLine().Trim();
+            if (userGuess.Length != 4 || !int.TryParse(userGuess, out _))
+            {
+                Console.WriteLine("Пароль має складатися з 4-х цифр. Спробуйте ще раз.");
+                continue;
+            }
 
-        Console.Write("Введіть улюблений колір: ");
-        string favoriteColor = Console.ReadLine().Trim();
+            string result = "";
+            for (int i = 0; i < 4; i++)
+            {
+                if (userGuess[i] == secretPassword[i])
+                {
+                    result += userGuess[i]; 
+                }
+                else
+                {
+                    result += "Х";
+                }
+            }
 
-        Console.Write("Введіть улюблену страву: ");
-        string favoriteFood = Console.ReadLine().Trim();
+           
+            attempts++;
 
-        Console.Write("Введіть хобі: ");
-        string hobby = Console.ReadLine().Trim();
+            Console.WriteLine($"Результат: {result}");
 
-        Console.Write("Введіть улюблене місце для відпочинку: ");
-        string favoriteVacationSpot = Console.ReadLine().Trim();
+            if (result == secretPassword)
+            {
+                isGuessed = true;
+                Console.WriteLine($"Ви вгадали пароль {secretPassword} за {attempts} спроб!");
+            }
+        }*/
 
-        Console.Write("Введіть улюблену пору року: ");
-        string favoriteSeason = Console.ReadLine().Trim();
+        //Task 4
 
-        Console.Write("Введіть улюблену тварину: ");
-        string favoriteAnimal = Console.ReadLine().Trim();
+        Random random = new Random();
+        string secretPassword = "";
+        for (int i = 0; i < 4; i++)
+        {
+            secretPassword += random.Next(0, 10).ToString();
+        }
 
-        Console.Write("Введіть улюблену книгу: ");
-        string favoriteBook = Console.ReadLine().Trim();
+        Console.WriteLine($"Комп'ютер загадав пароль. Починаємо автоматичний підбір...");
+        Console.WriteLine($"Загаданий пароль: {secretPassword}");
 
-        Console.Write("Введіть улюблений фільм: ");
-        string favoriteMovie = Console.ReadLine().Trim();
+        int attempts = 0;
+        string currentGuess = "0000";
 
-        Console.Write("Введіть улюблений вид спорту: ");
-        string favoriteSport = Console.ReadLine().Trim();
+     
+        while (currentGuess != secretPassword)
+        {
+            attempts++;
+            currentGuess = GenerateNextGuess(currentGuess, secretPassword);
+            Console.WriteLine($"Спроба {attempts}: {currentGuess}");
+        }
 
-        Console.Write("Введіть улюблений жанр музики: ");
-        string favoriteMusicGenre = Console.ReadLine().Trim();
+        Console.WriteLine($"Пароль вгадано! {secretPassword} за {attempts} спроб.");
+    }
 
-        Console.Write("Введіть місце роботи або навчання: ");
-        string occupation = Console.ReadLine().Trim();
+    static string GenerateNextGuess(string currentGuess, string secretPassword)
+    {
+        char[] guess = currentGuess.ToCharArray();
 
-        Console.Write("Введіть назву рідного міста: ");
-        string hometown = Console.ReadLine().Trim();
+        
+        for (int i = 0; i < 4; i++)
+        {
+            if (guess[i] != secretPassword[i])
+            {
+                int currentDigit = (guess[i] - '0' + 1) % 10;
+                guess[i] = currentDigit.ToString()[0];
+                break; 
+            }
+        }
 
-        Console.Write("Введіть дату народження (00.00.0000): ");
-        string dateOfBirth = Console.ReadLine().Trim();
-
-        Console.Write("Введіть ім’я улюбленого виконавця або гурту: ");
-        string favoriteArtist = Console.ReadLine().Trim();
-
-        Console.Write("Введіть улюблену цитату: ");
-        string favoriteQuote = Console.ReadLine().Trim();
-
-        Console.Write("Введіть улюблену країну: ");
-        string favoriteCountry = Console.ReadLine().Trim();
-
-        Console.Write("Введіть улюблений стиль одягу: ");
-        string favoriteClothingStyle = Console.ReadLine().Trim();
-
-        Console.Write("Введіть улюблену мову програмування: ");
-        string favoriteProgrammingLanguage = Console.ReadLine().Trim();
-
-        Console.Write("Введіть назву компанії, де хочете працювати: ");
-        string dreamCompany = Console.ReadLine().Trim();
-
-        Console.Write("Введіть кількість країн, які ви відвідали: ");
-        int countriesVisited = int.Parse(Console.ReadLine());
-
-        Console.Write("Введіть свою найбільшу мрію: ");
-        string biggestDream = Console.ReadLine().Trim();
-
-        Console.Write("Введіть улюблену (комп'ютерну) гру: ");
-        string favoriteGame = Console.ReadLine().Trim();
-
-        Console.WriteLine("\nВведені дані:");
-        Console.WriteLine($"Стать: {gender}");
-        Console.WriteLine($"ПІБ: {fullName}");
-        Console.WriteLine($"Вік: {age}");
-        Console.WriteLine($"Адреса: вул. {street}, буд. {houseNumber}, кв. {apartmentNumber}");
-        Console.WriteLine($"Телефон: {phoneNumber}");
-        Console.WriteLine($"Електронна пошта: {email}");
-        Console.WriteLine($"Зріст: {height} м");
-        Console.WriteLine($"Вага: {weight} кг");
-        Console.WriteLine($"Група крові: {bloodGroup}");
-        Console.WriteLine($"Улюблений колір: {favoriteColor}");
-        Console.WriteLine($"Улюблена страва: {favoriteFood}");
-        Console.WriteLine($"Хобі: {hobby}");
-        Console.WriteLine($"Улюблене місце для відпочинку: {favoriteVacationSpot}");
-        Console.WriteLine($"Улюблена пора року: {favoriteSeason}");
-        Console.WriteLine($"Улюблена тварина: {favoriteAnimal}");
-        Console.WriteLine($"Улюблена книга: {favoriteBook}");
-        Console.WriteLine($"Улюблений фільм: {favoriteMovie}");
-        Console.WriteLine($"Улюблений вид спорту: {favoriteSport}");
-        Console.WriteLine($"Улюблений жанр музики: {favoriteMusicGenre}");
-        Console.WriteLine($"Місце роботи або навчання: {occupation}");
-        Console.WriteLine($"Рідне місто: {hometown}");
-        Console.WriteLine($"Дата народження: {dateOfBirth}");
-        Console.WriteLine($"Улюблений виконавець або гурт: {favoriteArtist}");
-        Console.WriteLine($"Улюблена цитата: {favoriteQuote}");
-        Console.WriteLine($"Улюблена країна: {favoriteCountry}");
-        Console.WriteLine($"Улюблений стиль одягу: {favoriteClothingStyle}");
-        Console.WriteLine($"Улюблена мова програмування: {favoriteProgrammingLanguage}");
-        Console.WriteLine($"Компанія мрії: {dreamCompany}");
-        Console.WriteLine($"Кількість відвіданих країн: {countriesVisited}");
-        Console.WriteLine($"Найбільша мрія: {biggestDream}");
-        Console.WriteLine($"Улюблена гра: {favoriteGame}");
-
-        // Task 2
-
-        /*Console.Write("Введіть назву продукту: ");
-        string productName = Console.ReadLine().Trim().ToUpper();
-        Console.Write("Введіть кількість продукту: ");
-        double quantity = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
-        Console.Write("Введіть одиниці вимірювання (шт., кг, тонни, літри тощо): ");
-        string unit = Console.ReadLine().Trim().ToLower();
-
-        Console.Write("Введіть ціну продукту: ");
-        double price = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
-
-        Console.Clear();
-
-        Console.WriteLine("Інформація про продукт:");
-        Console.WriteLine($"Назва: {productName}");
-        Console.WriteLine($"Кількість: {quantity} {unit}");
-        Console.WriteLine($"Ціна: {price} за {unit}");*/
+        return new string(guess);
     }
 }

@@ -1,197 +1,152 @@
 ﻿using System;
-using System.Globalization;
 using System.Text;
+
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         Console.OutputEncoding = Encoding.UTF8;
+        // 1. Задача с числовым шифром
+        int[] cipher = { 8, 5, 12, 12, 15 };
+        string word = "";
+        foreach (int number in cipher)
+        {
+            word += (char)(number + 64);
+        }
+        Console.WriteLine($"Шифр: {word}");
 
-        //Task 1
+        // 2. Масив-чудо
+        int[] array = { 3, 5, 2, 7, 9 };
+        int[] result = new int[array.Length];
 
-        /*Console.WriteLine("Введіть розмір ставки(від 5$ до 100$, крок ставки 5$):");
-        int bet;
-        while (!int.TryParse(Console.ReadLine(), out bet) || bet < 5 || bet > 100 || bet % 5 != 0)
+        for (int i = 0; i < array.Length; i++)
         {
-            Console.WriteLine("Неправильна ставка. Введіть значення в діапазоні від 5$ до 100$:");
-        }
-        Random random = new Random();
-        int[] reels = new int[3];
-        for (int i = 0; i < reels.Length; i++)
-        {
-            reels[i] = random.Next(1, 10);
-        }
-        Console.WriteLine($"Ваша комбінація: {reels[0]}{reels[1]}{reels[2]}");
-        double multiplier = CalculateMultiplier(reels);
-        if(multiplier > 0)
-        {
-            double winnings = bet * multiplier;
-            Console.WriteLine($"Вітаємо! Ви виграли {winnings:C}(коефіцієнт: {multiplier})");
-        }
-        else
-        {
-            Console.WriteLine("На жаль, ви програли. Спробуйте ще раз...");
-        }
-    }
-    static double CalculateMultiplier(int[] reels)
-    {
-        if (reels[0] == reels[1] && reels[1] == reels[2])
-        {
-            switch (reels[0])
+            if (IsPrime(i))
             {
-                case 1: return 10 * 1.5;
-                case 2: return 20 * 1.5;
-                case 3: return 30 * 1.5;
-                case 4: return 40 * 1.5;
-                case 5: return 50 * 1.5;
-                case 6: return 60 * 1.5;
-                case 8: return 80 * 1.5;
-                case 9: return 90 * 1.5;
-                case 7: return 150 * 1.5;
+                result[i] = array[i] * 2;
+            }
+            else
+            {
+                result[i] = array[i] * i;
             }
         }
-        if (reels[0] == reels[1] || reels[1] == reels[2])
-        {
-            int matchedNumber = reels[1];
-            switch (matchedNumber)
-            {
-                case 1: return 1 * 1.25;
-                case 2: return 2 * 1.25;
-                case 3: return 3 * 1.25;
-                case 4: return 4 * 1.25;
-                case 5: return 5 * 1.25;
-                case 6: return 6 * 1.25;
-                case 8: return 8 * 1.25;
-                case 9: return 9 * 1.25;
-                case 7: return 15 * 1.25;
+        Console.WriteLine($"Масив-чудо: {string.Join(", ", result)}");
 
+        // 3. Поиск минимального разрыва
+        int[] numbers = { 10, 2, 5, 12, 7 };
+        int minDiff = int.MaxValue;
+        int[] minPair = new int[2];
+        for (int i = 0; i < numbers.Length - 1; i++)
+        {
+            int diff = Math.Abs(numbers[i] - numbers[i + 1]);
+            if (diff < minDiff)
+            {
+                minDiff = diff;
+                minPair[0] = i;
+                minPair[1] = i + 1;
             }
         }
-        if (Array.Exists(reels, x => x == 7)) return 1.6;
-        if (Array.Exists(reels, x => x == 9)) return 1.35;
-        return 0;*/
+        Console.WriteLine($"Мінімальний розрив: {string.Join(", ", minPair)}");
 
-        //Task 2;
-        /* Console.WriteLine("Введіть число N:");
-         int N;
-         while (!int.TryParse(Console.ReadLine(), out N) || N <= 0)
-         {
-             Console.WriteLine("Будь ласка, введіть додатне ціле число:");
-         }
-         Console.WriteLine($"Числа Армстронга в діапазоні від 1 до {N}:");
-         for (int i = 1; i <= N; i++)
-         {
-             if (IsArmstrong(i))
-             {
-                 Console.WriteLine(i);
-             }
-         }
-     }
-     static bool IsArmstrong(int number)
-     {
-         int sum = 0;
-         int temp = number;
-         int digitsCount = number.ToString().Length; 
+        // 4. Два масиви — два супротивники
+        int[] array1 = { 10, 20, 30 };
+        int[] array2 = { 15, 10, 40 };
+        int[] diffArray = new int[array1.Length];
 
-         while (temp > 0)
-         {
-             int digit = temp % 10; 
-             sum += (int)Math.Pow(digit, digitsCount); 
-             temp /= 10; 
-         }
-
-         return sum == number;*/
-
-        //Task 3
-
-        /*Random random = new Random();
-        string secretPassword = "";
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < array1.Length; i++)
         {
-            secretPassword += random.Next(0, 10).ToString();
+            int diff = array1[i] - array2[i];
+            diffArray[i] = diff < 0 ? 0 : diff;
         }
+        Console.WriteLine($"Різниця масивів: {string.Join(", ", diffArray)}");
 
-        Console.WriteLine("Гра починається! Комп'ютер загадав пароль з 4-х цифр. Вгадайте його.");
-        int attempts = 0;
-        bool isGuessed = false;
-
-        while (!isGuessed)
+        // 5. Масив для шифра Цезаря
+        char[] text = { 'A', 'B', 'C' };
+        int shift = 3;
+        for (int i = 0; i < text.Length; i++)
         {
-            Console.Write("Введіть ваш пароль: ");
-            string userGuess = Console.ReadLine();
-
-            if (userGuess.Length != 4 || !int.TryParse(userGuess, out _))
+            if (char.IsLetter(text[i]))
             {
-                Console.WriteLine("Пароль має складатися з 4-х цифр. Спробуйте ще раз.");
-                continue;
+                text[i] = (char)((text[i] - 'A' + shift) % 26 + 'A');
             }
+        }
+        Console.WriteLine($"Шифр Цезаря: {string.Join("", text)}");
 
-            string result = "";
-            for (int i = 0; i < 4; i++)
+        // 6. Масив як карта висот
+        int[] heights = { 1, 3, 2, 4, 1, 5 };
+        List<int> peaks = new List<int>();
+
+        for (int i = 1; i < heights.Length - 1; i++)
+        {
+            if (heights[i] > heights[i - 1] && heights[i] > heights[i + 1])
             {
-                if (userGuess[i] == secretPassword[i])
+                peaks.Add(heights[i]);
+            }
+        }
+        Console.WriteLine($"Піки: {string.Join(", ", peaks)}");
+
+        // 7. Видалити елемент масиву за індексом
+        int[] nums = { 1, 3, 2, 4, 1, 5 };
+        int indexToRemove = 2;
+        List<int> newNums = new List<int>(nums);
+        newNums.RemoveAt(indexToRemove);
+        Console.WriteLine($"Масив після видалення: {string.Join(", ", newNums)}");
+
+        // 8. Сума двох елементів
+        int[] sortedArray = { 1, 2, 4, 7, 9, 11 };
+        int targetSum = 11;
+        for (int i = 0; i < sortedArray.Length; i++)
+        {
+            for (int j = i + 1; j < sortedArray.Length; j++)
+            {
+                if (sortedArray[i] + sortedArray[j] == targetSum)
                 {
-                    result += userGuess[i]; 
-                }
-                else
-                {
-                    result += "Х";
+                    Console.WriteLine($"Індекси: {i}, {j}");  // Рішення: [1, 4]
+                    break;
                 }
             }
+        }
 
-           
-            attempts++;
-
-            Console.WriteLine($"Результат: {result}");
-
-            if (result == secretPassword)
-            {
-                isGuessed = true;
-                Console.WriteLine($"Ви вгадали пароль {secretPassword} за {attempts} спроб!");
-            }
-        }*/
-
-        //Task 4
-
+        // 9. Генерація відсортованого масиву випадкових чисел
         Random random = new Random();
-        string secretPassword = "";
-        for (int i = 0; i < 4; i++)
+        int length = 5;
+        int min = 0, max = 10;
+        List<int> randomList = new List<int>();
+
+        for (int i = 0; i < length; i++)
         {
-            secretPassword += random.Next(0, 10).ToString();
+            randomList.Add(random.Next(min, max + 1));
         }
+        randomList.Sort();
+        Console.WriteLine($"Випадковий відсортований масив: {string.Join(", ", randomList)}");
 
-        Console.WriteLine($"Комп'ютер загадав пароль. Починаємо автоматичний підбір...");
-        Console.WriteLine($"Загаданий пароль: {secretPassword}");
-
-        int attempts = 0;
-        string currentGuess = "0000";
-
-     
-        while (currentGuess != secretPassword)
+        // 10. Генерація масиву випадкових унікальних чисел
+        HashSet<int> uniqueRandomSet = new HashSet<int>();
+        while (uniqueRandomSet.Count < length)
         {
-            attempts++;
-            currentGuess = GenerateNextGuess(currentGuess, secretPassword);
-            Console.WriteLine($"Спроба {attempts}: {currentGuess}");
+            uniqueRandomSet.Add(random.Next(min, max + 1));
         }
+        List<int> uniqueRandomList = new List<int>(uniqueRandomSet); Console.WriteLine($"Унікальні випадкові числа: {string.Join(", ", uniqueRandomList)}");
 
-        Console.WriteLine($"Пароль вгадано! {secretPassword} за {attempts} спроб.");
+        // 11. Перші N чисел Фібоначчі
+        int n = 5;
+        List<int> fibonacci = new List<int> { 1, 2 };
+        for (int i = 2; i < n; i++)
+        {
+            fibonacci.Add(fibonacci[i - 1] + fibonacci[i - 2]);
+        }
+        Console.WriteLine($"Числа Фібоначчі: {string.Join(", ", fibonacci)}");
     }
 
-    static string GenerateNextGuess(string currentGuess, string secretPassword)
+    // Перевірка простого числа
+    static bool IsPrime(int number)
     {
-        char[] guess = currentGuess.ToCharArray();
-
-        
-        for (int i = 0; i < 4; i++)
+        if (number <= 1) return false;
+        for (int i = 2; i <= Math.Sqrt(number); i++)
         {
-            if (guess[i] != secretPassword[i])
-            {
-                int currentDigit = (guess[i] - '0' + 1) % 10;
-                guess[i] = currentDigit.ToString()[0];
-                break; 
-            }
+            if (number % i == 0) return false;
         }
-
-        return new string(guess);
+        return true;
     }
+
 }
